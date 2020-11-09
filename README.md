@@ -6,5 +6,10 @@ $ docker-compose build
 
 ### invoke local
 ```bash
-$ docker-compose run --rm app serverless invoke local --function hello
+$ docker-compose run --rm app serverless invoke local --function rain
+```
+
+### deploy
+```
+$ docker-compose run --rm app serverless deploy
 ```

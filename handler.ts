@@ -8,12 +8,12 @@ const JMA_RAIN_SELECTOR = '#forecasttablefont > tbody > tr:nth-child(2) > td.rai
 const RAIN_PERCENTAGE_THRESHOLD = Number(process.env.RAIN_PERCENTAGE_THRESHOLD);
 const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL
 
-export const hello: ScheduledHandler = async (_event, _context) => {
+export const rain: ScheduledHandler = async (_event, _context) => {
   const rainPercentages = await getRainPercentages();
   const rainPercentage = Math.max(...rainPercentages)
   let message = `降水確率${rainPercentage}%`;
   if (RAIN_PERCENTAGE_THRESHOLD <= Math.max(...rainPercentages)) {
-    message += " ※あめがふります";
+    message += " ※雨が降るので家に居ましょう";
   }
 
   await axios.post(SLACK_WEBHOOK_URL, { text: message });

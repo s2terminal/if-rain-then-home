@@ -2,10 +2,7 @@ import type { Serverless } from 'serverless/aws';
 
 const serverlessConfiguration: Serverless = {
   service: {
-    name: 'app',
-    // app and org for use with dashboard.serverless.com
-    // app: your-app-name,
-    // org: your-org-name,
+    name: 'if-rain-then-home',
   },
   frameworkVersion: '2',
   custom: {
@@ -18,25 +15,18 @@ const serverlessConfiguration: Serverless = {
   plugins: ['serverless-webpack'],
   provider: {
     name: 'aws',
+    region: 'ap-northeast-1',
     runtime: 'nodejs12.x',
-    apiGateway: {
-      minimumCompressionSize: 1024,
-    },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      RAIN_PERCENTAGE_THRESHOLD: process.env.RAIN_PERCENTAGE_THRESHOLD,
+      SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
     },
   },
   functions: {
-    hello: {
-      handler: 'handler.hello',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'hello',
-          }
-        }
-      ]
+    rain: {
+      handler: 'handler.rain',
+      events: [ { schedule: 'cron(0 22 * * ? *)' } ] // UTC
     }
   }
 }
