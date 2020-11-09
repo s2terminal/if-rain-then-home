@@ -1,6 +1,7 @@
 ## if rain then home
 ```bash
-$ docker-compose run --rm app sh
+$ cp .env.example .env
+$ docker-compose build
 ```
 
 ### invoke local

@@ -4,3 +4,6 @@ services:
     build: .
     volumes:
       - .:/app
+    environment:
+      - RAIN_PERCENTAGE_THRESHOLD
+      - SLACK_WEBHOOK_URL
